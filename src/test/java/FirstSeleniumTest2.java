@@ -7,27 +7,23 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class FirstSeleniumTest {
+public class FirstSeleniumTest2 {
     WebDriver driver = new ChromeDriver();
 
     @Test
     public void loginTest(){
         startNavigation("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-        driver.findElement(By.name("username")).sendKeys("Admin");
-        driver.findElement(By.name("password")).sendKeys("abc123");
-        driver.findElement(By.cssSelector("[type='submit']")).click();
-        String expectedUrl="https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
-        implicitlyWait(10);
-        Assert.assertEquals(driver.getCurrentUrl(),expectedUrl);
+        findAndTypeCss("[name='username']", "Admin");
+        findAndTypeCss("[type='password']","admin123");
+        findAndClickCss("[type='submit']");
+        Assert.assertEquals(findAndGetTextCss(".oxd-text--h6"), "Dashboard");
     }
 
 
-
-
-    @AfterMethod
+   /* @AfterMethod
     public void tearDown(){
         driver.close();
-    }
+    }*/
 
     private void startNavigation(String url){
         driver.navigate().to(url);
@@ -36,6 +32,19 @@ public class FirstSeleniumTest {
     }
     private void implicitlyWait(int sec){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(sec));
+    }
+
+    private void findAndClickCss(String css){
+        driver.findElement(new By.ByCssSelector(css)).click();
+    }
+
+    private void findAndTypeCss(String css, String text){
+        driver.findElement(By.cssSelector(css)).sendKeys(text);
+    }
+
+    private String findAndGetTextCss(String css){
+        String text = driver.findElement(By.cssSelector(css)).getText();
+        return text;
     }
 
 }
