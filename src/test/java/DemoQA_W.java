@@ -17,7 +17,7 @@ public class DemoQA_W {
     public void elementsButton(){
         startNavigation("https://demoqa.com/");
 
-        clickFromElementList(".card-body>h5", "Elements");
+        clickFromElementList(".card-up", "Elements");
 
         click("#item-0");
 
@@ -50,7 +50,17 @@ public class DemoQA_W {
 
     @AfterMethod
     public void quit(){
+        wait(5);
         driver.close();
+    }
+
+    private void wait(int second){
+        try{
+            Thread.sleep(second*1000);
+        }catch (InterruptedException e){
+            throw new RuntimeException(e);
+        }
+
     }
 
     public String getPageTitle(){
