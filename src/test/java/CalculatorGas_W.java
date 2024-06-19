@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class CalculatorGas {
+public class CalculatorGas_W {
     WebDriver driver = new ChromeDriver();
 
     @Test
