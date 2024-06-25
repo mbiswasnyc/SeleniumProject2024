@@ -33,10 +33,15 @@ public class DemoQA_W {
 
         click("[id='submit']");
 
-        Assert.assertTrue(driver.findElement(By.xpath("//p[@id='name']")).getText().contains(name));
-        Assert.assertTrue(driver.findElement(By.xpath("//p[@id='email']")).getText().contains(email));
+        //Assert.assertTrue(driver.findElement(By.xpath("//p[@id='name']")).getText().contains(name));
+
+        Assert.assertEquals(getElementTextById("name"), "Name:"+name);
+        Assert.assertEquals(getElementTextById("email"), "Email:"+email);
         Assert.assertTrue(driver.findElement(By.xpath("//p[@id='currentAddress']")).getText().contains(currentAddress));
         Assert.assertTrue(driver.findElement(By.xpath("//p[@id='permanentAddress']")).getText().contains(permanentAddress));
+
+
+
     }
 
     public void startNavigation(String url){
@@ -50,7 +55,7 @@ public class DemoQA_W {
 
     @AfterMethod
     public void quit(){
-        wait(5);
+        wait(2);
         driver.close();
     }
 
@@ -93,6 +98,9 @@ public class DemoQA_W {
         }catch (Exception e){
             return driver.findElement(By.xpath(locator)).getText();
         }
+    }
+    public String getElementTextById(String locator){
+        return driver.findElement(By.id(locator)).getText();
     }
 
     public void findAndTypeById(String id, String text){
